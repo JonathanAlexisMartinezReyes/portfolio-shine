@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
+import { Menu, X, Linkedin, Github, MessageCircle } from "lucide-react";
 
 const navItems = [
-  { name: "Inicio", href: "#hero" },
-  { name: "Sobre mí", href: "#about" },
-  { name: "Proyectos", href: "#projects" },
-  { name: "Habilidades", href: "#skills" },
-  { name: "Contacto", href: "#contact" },
+  { name: "Inicio", href: "#inicio" },
+  { name: "Sobre Mí", href: "#sobre-mi" },
+  { name: "Proyectos", href: "#proyectos" },
+  { name: "Contacto", href: "#contacto" },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,50 +22,111 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/90 backdrop-blur-lg border-b border-border"
+          ? "bg-background/85 backdrop-blur-xl border-b border-border/50 shadow-soft"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-6 lg:px-10">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
           <a
-            href="#hero"
-            className="text-xl font-bold text-gradient font-mono"
+            href="#inicio"
+            className="text-xl lg:text-2xl font-bold text-foreground transition-colors hover:text-primary"
           >
-            {"<Dev />"}
+            Dev Esteban<span className="text-primary">.</span>
           </a>
 
-          <ul className="hidden md:flex items-center gap-8">
-            {navItems.map((item, index) => (
-              <li key={item.name}>
-                <a
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors duration-300 link-underline ${
-                    activeSection === item.href.slice(1)
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  <span className="text-primary font-mono text-xs mr-1">
-                    0{index + 1}.
-                  </span>
-                  {item.name}
-                </a>
-              </li>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:block">
+            <ul className="flex items-center gap-8">
+              {navItems.map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 link-underline"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Social Icons */}
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <Linkedin className="w-5 h-5" />
+            </a>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+            <a
+              href="https://wa.me/123456789"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <MessageCircle className="w-5 h-5" />
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 text-foreground"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ${
+            isMobileMenuOpen ? "max-h-80 pb-6" : "max-h-0"
+          }`}
+        >
+          <nav className="flex flex-col gap-4">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-muted-foreground hover:text-foreground transition-colors py-2"
+              >
+                {item.name}
+              </a>
             ))}
-          </ul>
-
-          <a
-            href="#contact"
-            className="hidden md:inline-flex px-4 py-2 text-sm font-medium text-primary border border-primary rounded hover:bg-primary/10 transition-all duration-300"
-          >
-            Contáctame
-          </a>
+            <div className="flex gap-4 pt-4 border-t border-border">
+              <a href="https://linkedin.com" className="text-muted-foreground hover:text-primary">
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a href="https://github.com" className="text-muted-foreground hover:text-primary">
+                <Github className="w-5 h-5" />
+              </a>
+              <a href="https://wa.me/123456789" className="text-muted-foreground hover:text-primary">
+                <MessageCircle className="w-5 h-5" />
+              </a>
+            </div>
+          </nav>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };

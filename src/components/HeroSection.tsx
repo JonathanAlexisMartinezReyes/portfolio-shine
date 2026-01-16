@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Download, ArrowRight } from "lucide-react";
+
+const techIcons = [
+  { icon: "JS", delay: 0, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" },
+  { icon: "⚛️", delay: 200, position: "bottom-[15%] right-[-5%]" },
+  { icon: "🐍", delay: 400, position: "bottom-[15%] left-[-5%]" },
+];
 
 export const HeroSection = () => {
   const [displayText, setDisplayText] = useState("");
   const fullText = "Desarrollador Web";
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
     let index = 0;
@@ -11,81 +20,111 @@ export const HeroSection = () => {
         setDisplayText(fullText.slice(0, index));
         index++;
       } else {
+        setIsTypingComplete(true);
         clearInterval(timer);
       }
-    }, 100);
+    }, 80);
 
     return () => clearInterval(timer);
   }, []);
 
   return (
     <section
-      id="hero"
-      className="min-h-screen flex items-center justify-center hero-gradient relative overflow-hidden"
+      id="inicio"
+      className="min-h-screen flex items-center hero-gradient relative overflow-hidden pt-20"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float animation-delay-300" />
+      {/* Subtle background shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-3xl animate-pulse-soft" />
+        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-secondary/50 rounded-full blur-3xl animate-pulse-soft animation-delay-300" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-3xl">
-          <p className="text-primary font-mono text-sm md:text-base mb-4 animate-fade-up opacity-0">
-            ¡Hola! Mi nombre es
-          </p>
+      <div className="container mx-auto px-6 lg:px-10 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          {/* Text Content */}
+          <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
+            <p className="text-muted-foreground text-lg mb-3 animate-fade-up">
+              Hola Mundo, Soy Esteban
+            </p>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 animate-fade-up opacity-0 animation-delay-100">
-            Tu Nombre Aquí
-          </h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 animate-fade-up animation-delay-100">
+              <span className="text-gradient">Ingeniero en Sistemas y</span>
+              <br />
+              <span className="text-foreground">
+                {displayText}
+                <span
+                  className={`border-r-2 border-primary ml-1 ${
+                    isTypingComplete ? "animate-blink-cursor" : ""
+                  }`}
+                >
+                  &nbsp;
+                </span>
+              </span>
+            </h1>
 
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-muted-foreground mb-6 animate-fade-up opacity-0 animation-delay-200">
-            <span className="text-gradient">{displayText}</span>
-            <span className="border-r-2 border-primary animate-pulse ml-1">
-              &nbsp;
-            </span>
-          </h2>
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto lg:mx-0 mb-8 animate-fade-up animation-delay-200">
+              Apasionado por crear soluciones digitales innovadoras y funcionales
+              que impacten positivamente al usuario final.
+            </p>
 
-          <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-8 animate-fade-up opacity-0 animation-delay-300">
-            Creo experiencias digitales excepcionales. Especializado en
-            construir aplicaciones web modernas, accesibles y de alto
-            rendimiento.
-          </p>
-
-          <div className="flex flex-wrap gap-4 animate-fade-up opacity-0 animation-delay-400">
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-all duration-300 hover-lift"
-            >
-              Ver proyectos
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 animate-fade-up animation-delay-300">
+              <Button
+                size="lg"
+                className="group rounded-full px-8 gap-2 shadow-soft hover:shadow-hover transition-all duration-300"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </a>
+                <Download className="w-4 h-4" />
+                Descargar CV
+              </Button>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-all duration-300"
-            >
-              Contáctame
-            </a>
+              <Button
+                variant="outline"
+                size="lg"
+                asChild
+                className="rounded-full px-8 gap-2 border-2 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              >
+                <a href="#contacto">
+                  Contáctame
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Profile Image with Orbit Icons */}
+          <div className="flex-1 flex justify-center order-1 lg:order-2 animate-scale-in animation-delay-200">
+            <div className="relative">
+              {/* Main Image Container */}
+              <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-2 border-secondary shadow-hover">
+                <div className="w-full h-full bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
+                  <span className="text-8xl">👨‍💻</span>
+                </div>
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-primary/5 hover:bg-transparent transition-all duration-500" />
+              </div>
+
+              {/* Orbiting Icons */}
+              {techIcons.map((tech, index) => (
+                <div
+                  key={index}
+                  className={`absolute ${tech.position} w-12 h-12 md:w-14 md:h-14 bg-card rounded-full flex items-center justify-center border border-secondary shadow-soft animate-float z-20`}
+                  style={{ animationDelay: `${tech.delay}ms` }}
+                >
+                  <span className="text-xl md:text-2xl font-bold text-primary">
+                    {tech.icon}
+                  </span>
+                </div>
+              ))}
+
+              {/* Decorative ring */}
+              <div className="absolute inset-0 -m-4 rounded-full border border-dashed border-secondary/50 animate-[spin_30s_linear_infinite]" />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in opacity-0 animation-delay-600">
-        <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-700">
+        <div className="w-6 h-10 border-2 border-muted-foreground/40 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-bounce" />
         </div>
       </div>
