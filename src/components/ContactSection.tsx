@@ -1,51 +1,127 @@
-import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Linkedin, Github, MessageCircle, Send, Mail } from "lucide-react";
+import { toast } from "sonner";
 
 const socialLinks = [
-  { name: "GitHub", icon: Github, url: "https://github.com" },
   { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com" },
-  { name: "Twitter", icon: Twitter, url: "https://twitter.com" },
-  { name: "Email", icon: Mail, url: "mailto:tu@email.com" },
+  { name: "GitHub", icon: Github, url: "https://github.com" },
+  { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/123456789" },
 ];
 
 export const ContactSection = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simular envío
+    setTimeout(() => {
+      toast.success("¡Mensaje enviado correctamente!");
+      setIsSubmitting(false);
+    }, 1500);
+  };
+
   return (
-    <section id="contact" className="py-24">
-      <div className="container mx-auto px-6">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-primary font-mono mb-4">04. ¿Qué sigue?</p>
+    <section id="contacto" className="py-24 lg:py-32">
+      <div className="container mx-auto px-6 lg:px-10">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Title */}
+          <div className="mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              Trabajemos Juntos
+              <span className="block w-24 h-1 bg-primary rounded-full mt-4" />
+            </h2>
+          </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            ¡Hablemos!
-          </h2>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Contact Info */}
+            <div className="space-y-8">
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Estoy interesado en oportunidades para colaborar en proyectos
+                innovadores. Si tienes alguna propuesta, no dudes en contactarme.
+              </p>
 
-          <p className="text-muted-foreground text-lg mb-8">
-            Actualmente estoy buscando nuevas oportunidades. Ya sea que tengas
-            una pregunta, una propuesta de proyecto, o simplemente quieras
-            saludar, ¡estaré encantado de responderte!
-          </p>
+              <div className="space-y-4">
+                <a
+                  href="mailto:esteban@email.com"
+                  className="flex items-center gap-3 text-foreground hover:text-primary transition-colors group"
+                >
+                  <div className="p-3 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <span>esteban@email.com</span>
+                </a>
+              </div>
 
-          <a
-            href="mailto:tu@email.com"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-primary text-primary font-medium rounded-lg hover:bg-primary/10 transition-all duration-300 animate-pulse-glow"
-          >
-            <Mail className="w-5 h-5" />
-            Enviar mensaje
-          </a>
+              {/* Social Links */}
+              <div className="flex gap-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-full bg-card border border-border text-muted-foreground hover:text-primary hover:border-primary/30 hover:-translate-y-1 shadow-soft hover:shadow-hover transition-all duration-300"
+                    aria-label={social.name}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </a>
+                ))}
+              </div>
+            </div>
 
-          {/* Social Links */}
-          <div className="flex justify-center gap-6 mt-12">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary hover:-translate-y-1 transition-all duration-300"
-                aria-label={social.name}
+            {/* Contact Form */}
+            <form
+              onSubmit={handleSubmit}
+              className="bg-card rounded-2xl p-6 lg:p-8 border border-border shadow-soft space-y-6"
+            >
+              <div className="space-y-2">
+                <Input
+                  type="text"
+                  placeholder="Nombre"
+                  required
+                  className="h-12 bg-muted/50 border-border focus:border-primary focus:bg-card transition-all duration-300"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Input
+                  type="email"
+                  placeholder="Correo Electrónico"
+                  required
+                  className="h-12 bg-muted/50 border-border focus:border-primary focus:bg-card transition-all duration-300"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Textarea
+                  placeholder="Tu mensaje"
+                  rows={5}
+                  required
+                  className="bg-muted/50 border-border focus:border-primary focus:bg-card transition-all duration-300 resize-none"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                size="lg"
+                disabled={isSubmitting}
+                className="w-full rounded-full gap-2 shadow-soft hover:shadow-hover transition-all duration-300"
               >
-                <social.icon className="w-6 h-6" />
-              </a>
-            ))}
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    Enviar Mensaje
+                  </>
+                )}
+              </Button>
+            </form>
           </div>
         </div>
       </div>
