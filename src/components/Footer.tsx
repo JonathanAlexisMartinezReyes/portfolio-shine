@@ -5,7 +5,7 @@ export const Footer = () => {
         <div className="text-center">
           <p className="text-muted-foreground text-sm">
             Diseñado y desarrollado por{" "}
-            <span className="text-primary font-medium">Esteban</span>
+            <span className="text-primary font-medium">Jonahan Reyes</span>
           </p>
           <p className="text-muted-foreground/60 text-xs mt-2">
             © {new Date().getFullYear()} Todos los derechos reservados

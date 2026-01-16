@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowRight } from "lucide-react";
 
+// Iconos actualizados a tu stack (Python, Java, DB)
 const techIcons = [
-  { icon: "JS", delay: 0, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" },
-  { icon: "⚛️", delay: 200, position: "bottom-[15%] right-[-5%]" },
-  { icon: "🐍", delay: 400, position: "bottom-[15%] left-[-5%]" },
+  { icon: "🐍", delay: 0, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" }, // Python
+  { icon: "☕", delay: 200, position: "bottom-[15%] right-[-5%]" }, // Java
+  { icon: "🗄️", delay: 400, position: "bottom-[15%] left-[-5%]" }, // Database/Backend
 ];
 
 export const HeroSection = () => {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "Desarrollador Web";
+  const fullText = "Desarrollador Backend & Full Stack"; // Tu perfil real según CV
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
@@ -44,11 +45,11 @@ export const HeroSection = () => {
           {/* Text Content */}
           <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
             <p className="text-muted-foreground text-lg mb-3 animate-fade-up">
-              Hola Mundo, Soy Esteban
+              [cite_start]Hola Mundo, Soy Jonathan Alexis [cite: 1]
             </p>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 animate-fade-up animation-delay-100">
-              <span className="text-gradient">Ingeniero en Sistemas y</span>
+              <span className="text-gradient">Ingeniero de Software y</span>
               <br />
               <span className="text-foreground">
                 {displayText}
@@ -63,8 +64,8 @@ export const HeroSection = () => {
             </h1>
 
             <p className="text-muted-foreground text-lg max-w-xl mx-auto lg:mx-0 mb-8 animate-fade-up animation-delay-200">
-              Apasionado por crear soluciones digitales innovadoras y funcionales
-              que impacten positivamente al usuario final.
+              Especializado en el desarrollo de sistemas seguros y escalables. 
+              [cite_start]Enfocado en Python, Django y Arquitectura en la Nube (AWS/Docker). [cite: 9, 10]
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 animate-fade-up animation-delay-300">

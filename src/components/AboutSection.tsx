@@ -5,30 +5,30 @@ const aboutCards = [
     icon: User,
     title: "¿Quién Soy?",
     description:
-      "Soy un Ingeniero en Sistemas y Desarrollador Web altamente motivado con sólidos conocimientos en desarrollo de software y diseño de interfaces web.",
+      "Ingeniero de Software en formación con sólida experiencia práctica en el desarrollo de sistemas gubernamentales seguros y escalables. Galardonado por el TJAEZ por la digitalización de procesos judiciales.",
   },
   {
     icon: Rocket,
     title: "Mi Objetivo",
     description:
-      "Mi objetivo es seguir aprendiendo y aplicar mis conocimientos actuales para ganar experiencia en diversas áreas como Front-end y Back-end.",
+      "Busco aportar soluciones técnicas robustas en equipos de desarrollo ágil, priorizando la escalabilidad y la seguridad de datos sensibles.",
   },
   {
     icon: Fingerprint,
-    title: "Mi Perfil",
+    title: "Investigación",
     description:
-      "Me caracterizo por mi capacidad para adaptarme rápidamente a nuevos entornos de trabajo y tecnologías, mi atención al detalle y mi compromiso.",
+      "Actualmente investigando aplicaciones de Machine Learning en el sector salud, desarrollando modelos predictivos para identificar riesgos médicos.",
   },
 ];
 
 const skills = [
-  { name: "HTML", icon: "🌐" },
-  { name: "CSS", icon: "🎨" },
-  { name: "JavaScript", icon: "⚡" },
-  { name: "Node.js", icon: "🟢" },
-  { name: "MySQL", icon: "🗄️" },
-  { name: "Angular", icon: "🅰️" },
+  { name: "Python", icon: "🐍" },
+  { name: "Django", icon: "🎯" },
   { name: "Java", icon: "☕" },
+  { name: "MySQL", icon: "🐬" },
+  { name: "MongoDB", icon: "🍃" },
+  { name: "Docker", icon: "🐳" },
+  { name: "AWS", icon: "☁️" },
   { name: "Git", icon: "📦" },
 ];
 

@@ -36,7 +36,7 @@ export const Navbar = () => {
             href="#inicio"
             className="text-xl lg:text-2xl font-bold text-foreground transition-colors hover:text-primary"
           >
-            Dev Esteban<span className="text-primary">.</span>
+            Dev Jonathan<span className="text-primary">.</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -58,7 +58,7 @@ export const Navbar = () => {
           {/* Social Icons */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="https://linkedin.com"
+              href="https://linkedin.com/in/jonamare"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition-all duration-300 hover:-translate-y-0.5"
@@ -114,7 +114,7 @@ export const Navbar = () => {
               </a>
             ))}
             <div className="flex gap-4 pt-4 border-t border-border">
-              <a href="https://linkedin.com" className="text-muted-foreground hover:text-primary">
+              <a href="https://linkedin.com/in/jonamare" className="text-muted-foreground hover:text-primary">
                 <Linkedin className="w-5 h-5" />
               </a>
               <a href="https://github.com" className="text-muted-foreground hover:text-primary">

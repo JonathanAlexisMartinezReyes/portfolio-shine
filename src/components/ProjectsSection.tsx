@@ -1,119 +1,148 @@
-import { ExternalLink, Github, Folder } from "lucide-react";
+import { Github, ExternalLink, Play, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  image?: string;
-  liveUrl?: string;
-  githubUrl?: string;
-  color: string;
-}
-
-const projects: Project[] = [
+const projects = [
   {
-    title: "Registro de control de centros SICT",
+    title: "Sistemas de Gestión Judicial (TJAEZ)",
     description:
-      "Sistema de registro de llamadas e incidencias de licencias nacionales e internacionales. Una solución completa para la gestión y seguimiento de casos.",
-    technologies: ["HTML", "CSS", "JS", "Bootstrap", "PostgreSQL"],
-    color: "from-primary/20 to-secondary",
+      "Lideré el desarrollo full-stack de los sistemas SICAAP y SALG para el Tribunal de Justicia Administrativa. Digitalización completa de procesos judiciales, reduciendo tiempos de gestión y aumentando la seguridad de datos sensibles.",
+    tags: ["Django", "Python", "Docker", "MySQL", "AWS"],
+    links: {
+      demo: "https://youtube.com/TU_LINK_AQUI", // ¡PON AQUÍ TU LINK DE YOUTUBE!
+      repo: null, // null indica que es privado
+    },
+    private: true,
   },
   {
-    title: "Página Web Personal",
+    title: "Predicción de Riesgos Médicos (ML)",
     description:
-      "Página web responsiva que muestra mis conocimientos de desarrollo y perfil profesional. Diseño moderno y optimizado para todos los dispositivos.",
-    technologies: ["HTML", "CSS", "JavaScript"],
-    color: "from-secondary to-muted",
+      "Investigación y desarrollo de un modelo de Machine Learning para identificar riesgos de aborto espontáneo. Análisis de patrones clínicos utilizando algoritmos de clasificación y bibliotecas de ciencia de datos.",
+    tags: ["Python", "Scikit-learn", "Pandas", "Data Science"],
+    links: {
+      demo: "#", // Si tienes un paper o PDF, ponlo aquí
+      repo: "https://gitlab-ingsoftware.uaz.edu.mx/JonathanMReyes", // Tu GitLab general o el repo específico
+    },
+    private: false,
   },
   {
-    title: "Desarrollo Microservicios",
+    title: "Portafolio Profesional",
     description:
-      "Desarrollo de microservicios usando Spring Boot y arquitectura REST (API REST). Backend escalable y mantenible para aplicaciones empresariales.",
-    technologies: ["Java", "Spring Boot", "Oracle"],
-    color: "from-muted to-primary/10",
+      "Diseño y desarrollo de mi portafolio personal utilizando tecnologías modernas de frontend. Enfocado en UI minimalista, performance y buenas prácticas de arquitectura de componentes.",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    links: {
+      demo: "#",
+      repo: "https://github.com/JonathanMReyes/portfolio-shine", // Asumiendo que este lo harás público
+    },
+    private: false,
   },
 ];
 
 export const ProjectsSection = () => {
   return (
-    <section id="proyectos" className="py-24 lg:py-32 bg-muted/30">
+    <section id="proyectos" className="py-24 lg:py-32">
       <div className="container mx-auto px-6 lg:px-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Title */}
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
-              Proyectos
-              <span className="block w-24 h-1 bg-primary rounded-full mt-4" />
-            </h2>
-          </div>
+        <div className="mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+            Proyectos Destacados
+            <span className="block w-24 h-1 bg-primary rounded-full mt-4" />
+          </h2>
+          <p className="mt-4 text-muted-foreground text-lg">
+            Una selección de mis trabajos más recientes en desarrollo web y ciencia de datos.
+          </p>
+        </div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover-lift"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {/* Project Image/Preview */}
-                <div
-                  className={`h-48 bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}
-                >
-                  <Folder className="w-16 h-16 text-primary/40 group-hover:scale-110 transition-transform duration-500" />
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-300" />
-                </div>
-
-                {/* Project Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-
-                    <div className="flex gap-2 flex-shrink-0">
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          <Github className="w-5 h-5" />
-                        </a>
-                      )}
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          <ExternalLink className="w-5 h-5" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-xs font-medium text-primary bg-primary/5 px-3 py-1 rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <Card
+              key={index}
+              className="flex flex-col border-border shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 group"
+            >
+              <CardHeader>
+                <div className="flex justify-between items-start mb-4">
+                  <div className="p-3 bg-primary/10 rounded-xl text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    {project.private ? <Lock size={24} /> : <Github size={24} />}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+                <CardTitle className="text-xl font-bold text-foreground">
+                  {project.title}
+                </CardTitle>
+                <CardDescription className="mt-2 text-base leading-relaxed">
+                  {project.description}
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent className="flex-1">
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {project.tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="bg-secondary/50 text-foreground hover:bg-secondary"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+
+              <CardFooter className="gap-3 pt-6">
+                {/* Botón de Demo / Video */}
+                {project.links.demo && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 gap-2 border-primary/20 hover:border-primary hover:bg-primary/5"
+                    asChild
+                  >
+                    <a
+                      href={project.links.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {project.private ? <Play size={16} /> : <ExternalLink size={16} />}
+                      {project.private ? "Ver Video" : "Demo Live"}
+                    </a>
+                  </Button>
+                )}
+
+                {/* Botón de Código */}
+                {project.links.repo ? (
+                  <Button
+                    size="sm"
+                    className="flex-1 gap-2 shadow-sm"
+                    asChild
+                  >
+                    <a
+                      href={project.links.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github size={16} />
+                      Código
+                    </a>
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    disabled
+                    className="flex-1 gap-2 opacity-80 cursor-not-allowed bg-muted text-muted-foreground hover:bg-muted"
+                  >
+                    <Lock size={16} />
+                    Privado
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+          ))}
         </div>
       </div>
     </section>

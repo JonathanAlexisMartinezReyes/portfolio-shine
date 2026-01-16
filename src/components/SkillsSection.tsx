@@ -1,17 +1,17 @@
 const skills = [
   {
-    category: "Frontend",
-    items: ["React", "TypeScript", "Next.js", "Tailwind CSS", "HTML5", "CSS3"],
-    icon: "🎨",
+    category: "Lenguajes & Frameworks",
+    items: ["Python (Avanzado)", "Java", "Django", "REST APIs"],
+    icon: "💻",
   },
   {
-    category: "Backend",
-    items: ["Node.js", "Express", "Python", "PostgreSQL", "MongoDB", "REST APIs"],
-    icon: "⚙️",
+    category: "Bases de Datos & Cloud",
+    items: ["MySQL (Relacional)", "MongoDB (NoSQL)", "AWS", "Railway"],
+    icon: "☁️",
   },
   {
-    category: "Herramientas",
-    items: ["Git", "GitHub", "VS Code", "Figma", "Docker", "Vercel"],
+    category: "DevOps & Herramientas",
+    items: ["Docker", "Git", "GitLab", "Premiere Pro / CapCut"],
     icon: "🛠️",
   },
 ];
@@ -23,7 +23,7 @@ export const SkillsSection = () => {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 flex items-center gap-4">
             <span className="text-primary font-mono text-xl">03.</span>
-            Habilidades
+            Stack Tecnológico
             <span className="flex-1 h-px bg-border ml-4" />
           </h2>
 

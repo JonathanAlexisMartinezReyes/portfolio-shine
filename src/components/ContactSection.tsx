@@ -6,7 +6,7 @@ import { Linkedin, Github, MessageCircle, Send, Mail } from "lucide-react";
 import { toast } from "sonner";
 
 const socialLinks = [
-  { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com" },
+  { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/jonamare" },
   { name: "GitHub", icon: Github, url: "https://github.com" },
   { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/123456789" },
 ];
@@ -47,13 +47,13 @@ export const ContactSection = () => {
 
               <div className="space-y-4">
                 <a
-                  href="mailto:esteban@email.com"
+                  href="mailto:jonathanalexismr@gmail.com"
                   className="flex items-center gap-3 text-foreground hover:text-primary transition-colors group"
                 >
                   <div className="p-3 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                     <Mail className="w-5 h-5" />
                   </div>
-                  <span>esteban@email.com</span>
+                  <span>jonathanalexismr@gmail.com</span>
                 </a>
               </div>
 
