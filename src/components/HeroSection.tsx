@@ -1,17 +1,32 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, ArrowRight } from "lucide-react";
+import { Download, ArrowRight, Server, CloudCog, ShieldCheck } from "lucide-react";
 
-// Iconos actualizados a tu stack (Python, Java, DB)
-const techIcons = [
-  { icon: "🐍", delay: 0, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" }, // Python
-  { icon: "☕", delay: 200, position: "bottom-[15%] right-[-5%]" }, // Java
-  { icon: "🗄️", delay: 400, position: "bottom-[15%] left-[-5%]" }, // Database/Backend
+// Definimos los delays exactos para que el brillo coincida con el giro del radar (4 segundos por vuelta)
+const radarSkills = [
+  {
+    icon: Server,
+    label: "Backend",
+    position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2", // Norte (0 grados)
+    highlightDelay: "0s", // Se ilumina al inicio
+  },
+  {
+    icon: CloudCog,
+    label: "Cloud Arch",
+    position: "bottom-[20%] right-[10%]", // Sureste (~135 grados)
+    highlightDelay: "1.5s", // Se ilumina cuando el haz pasa por aquí
+  },
+  {
+    icon: ShieldCheck,
+    label: "QA & Sec",
+    position: "bottom-[20%] left-[10%]", // Suroeste (~225 grados)
+    highlightDelay: "2.5s", // Se ilumina cuando el haz pasa por aquí
+  },
 ];
 
 export const HeroSection = () => {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "Desarrollador Backend & Full Stack"; // Tu perfil real según CV
+  const fullText = "Desarrollador Backend & Full Stack";
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
@@ -32,20 +47,43 @@ export const HeroSection = () => {
   return (
     <section
       id="inicio"
-      className="min-h-screen flex items-center hero-gradient relative overflow-hidden pt-20"
+      className="min-h-screen flex items-center hero-gradient relative overflow-hidden pt-20 lg:pt-0"
     >
-      {/* Subtle background shapes */}
+      {/* Estilos para la animación del brillo (Flash) */}
+      <style>{`
+        @keyframes radar-flash {
+          0%, 100% { 
+            background-color: hsla(var(--card), 0.8); 
+            color: hsl(var(--primary)); 
+            transform: scale(1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+          }
+          10%, 20% { 
+            background-color: hsl(var(--primary)); 
+            color: hsl(var(--primary-foreground)); 
+            transform: scale(1.15); 
+            box-shadow: 0 0 25px hsl(var(--primary) / 0.6);
+            border-color: transparent;
+          }
+        }
+        .animate-radar-flash {
+          animation: radar-flash 4s infinite;
+        }
+      `}</style>
+
+      {/* Fondos sutiles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-primary/[0.03] rounded-full blur-3xl animate-pulse-soft" />
         <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-secondary/50 rounded-full blur-3xl animate-pulse-soft animation-delay-300" />
       </div>
 
       <div className="container mx-auto px-6 lg:px-10 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          {/* Text Content */}
-          <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
+          
+          {/* Columna de Texto (Izquierda) */}
+          <div className="flex-1 text-center lg:text-left order-2 lg:order-1 mt-8 lg:mt-0 z-20">
             <p className="text-muted-foreground text-lg mb-3 animate-fade-up">
-              [cite_start]Hola Mundo, Soy Jonathan Alexis [cite: 1]
+              Hola Mundo, Soy Jonathan Alexis
             </p>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 animate-fade-up animation-delay-100">
@@ -64,8 +102,8 @@ export const HeroSection = () => {
             </h1>
 
             <p className="text-muted-foreground text-lg max-w-xl mx-auto lg:mx-0 mb-8 animate-fade-up animation-delay-200">
-              Especializado en el desarrollo de sistemas seguros y escalables. 
-              [cite_start]Enfocado en Python, Django y Arquitectura en la Nube (AWS/Docker). [cite: 9, 10]
+              Especializado en el desarrollo de sistemas seguros y escalables.
+              Enfocado en Python, Django y AWS Docker.
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 animate-fade-up animation-delay-300">
@@ -91,42 +129,77 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Profile Image with Orbit Icons */}
-          <div className="flex-1 flex justify-center order-1 lg:order-2 animate-scale-in animation-delay-200">
-            <div className="relative">
-              {/* Main Image Container */}
-              <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-2 border-secondary shadow-hover">
-                <div className="w-full h-full bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
-                  <span className="text-8xl">👨‍💻</span>
+          {/* Columna Visual (Derecha) - COMPOSICIÓN GEOMÉTRICA */}
+          <div className="flex-1 flex items-center justify-center lg:justify-end order-1 lg:order-2 animate-scale-in animation-delay-200 relative min-h-[450px]">
+            
+            {/* Contenedor relativo maestro de la composición */}
+            <div className="relative w-80 h-80 md:w-96 md:h-96 mr-0 lg:mr-10">
+              
+              {/* 1. EL RADAR (Base Centrada) */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                {/* Límite visual del radar */}
+                <div className="w-full h-full rounded-full border border-primary/10 relative overflow-hidden">
+                    
+                    {/* --- NUEVO: Haz de Luz (Scanner) --- */}
+                    {/* Gira en 4s, igual que el ciclo de highlight de los iconos */}
+                    <div className="absolute inset-0 animate-[spin_4s_linear_infinite]">
+                        <div className="w-full h-1/2 bg-gradient-to-l from-transparent via-transparent to-primary/20 opacity-0" /> {/* Mitad vacía */}
+                        <div className="w-full h-1/2 bg-gradient-to-r from-transparent via-primary/5 to-primary/30 border-b border-primary/40 blur-sm" /> {/* Haz de luz */}
+                    </div>
+
+                    {/* Ondas internas */}
+                    <div className="absolute inset-8 rounded-full border-2 border-primary/5 animate-[ping_3s_ease-in-out_infinite]" />
+                    <div className="absolute inset-20 rounded-full border-2 border-primary/10 animate-[ping_3s_ease-in-out_infinite] animation-delay-500" />
+                    
+                    {/* Centro exacto del radar (Referencia visual) */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-primary/20 rounded-full"></div>
                 </div>
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-primary/5 hover:bg-transparent transition-all duration-500" />
+
+                {/* Iconos distribuidos en el radar (Fuera del overflow hidden para que el shadow se vea bien) */}
+                {/* Nota: Usamos un contenedor del mismo tamaño encima para los iconos */}
+                <div className="absolute inset-0 w-full h-full pointer-events-none">
+                    {radarSkills.map((skill, index) => (
+                    <div
+                        key={index}
+                        className={`absolute ${skill.position} flex flex-col items-center gap-2 z-10`}
+                    >
+                        {/* El icono con la animación de flash sincronizada */}
+                        <div 
+                            className="w-10 h-10 md:w-12 md:h-12 bg-card/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-primary/30 shadow-soft text-primary transition-all duration-300 animate-radar-flash"
+                            style={{ animationDelay: skill.highlightDelay }}
+                        >
+                            <skill.icon className="w-5 h-5 md:w-6 md:h-6" />
+                        </div>
+                        
+                        {/* Etiqueta de texto */}
+                        <span className="text-[10px] md:text-xs font-semibold text-primary/80 bg-card/60 px-2 py-0.5 rounded-full border border-primary/5">
+                            {skill.label}
+                        </span>
+                    </div>
+                    ))}
+                </div>
               </div>
 
-              {/* Orbiting Icons */}
-              {techIcons.map((tech, index) => (
-                <div
-                  key={index}
-                  className={`absolute ${tech.position} w-12 h-12 md:w-14 md:h-14 bg-card rounded-full flex items-center justify-center border border-secondary shadow-soft animate-float z-20`}
-                  style={{ animationDelay: `${tech.delay}ms` }}
-                >
-                  <span className="text-xl md:text-2xl font-bold text-primary">
-                    {tech.icon}
-                  </span>
+              {/* 2. LA FOTO (Posicionada Estratégicamente) */}
+              <div className="absolute bottom-1/2 left-1/2 transform -translate-x-[250%] mb-8 z-20">
+                <div className="w-40 h-40 md:w-44 md:h-44 rounded-full overflow-hidden border-[4px] border-card shadow-2xl bg-earth-100 relative group">
+                  {/* Brillo interior */}
+                  <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-full z-10" />
+                  <img 
+                    src="/profile-anime.png" 
+                    alt="Jonathan Alexis"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
-              ))}
+                
+                {/* Etiqueta flotante */}
+                <div className="absolute -right-4 bottom-4 bg-primary text-primary-foreground text-[10px] font-bold px-2 py-1 rounded-full shadow-lg border-2 border-card animate-bounce hidden md:block">
+                    Dev
+                </div>
+              </div>
 
-              {/* Decorative ring */}
-              <div className="absolute inset-0 -m-4 rounded-full border border-dashed border-secondary/50 animate-[spin_30s_linear_infinite]" />
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-700">
-        <div className="w-6 h-10 border-2 border-muted-foreground/40 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-bounce" />
         </div>
       </div>
     </section>

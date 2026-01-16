@@ -1,4 +1,11 @@
+import React from "react";
 import { User, Rocket, Fingerprint } from "lucide-react";
+import AutoScroll from "embla-carousel-auto-scroll";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 const aboutCards = [
   {
@@ -33,11 +40,20 @@ const skills = [
 ];
 
 export const AboutSection = () => {
+  // Configuración para movimiento fluido infinito (speed: 1)
+  const plugin = React.useRef(
+    AutoScroll({ 
+      speed: 1, 
+      stopOnInteraction: false,
+      stopOnMouseEnter: true, // Se detiene suave si pones el mouse (opcional)
+    })
+  );
+
   return (
     <section id="sobre-mi" className="py-24 lg:py-32">
       <div className="container mx-auto px-6 lg:px-10">
         <div className="max-w-6xl mx-auto">
-          {/* Section Title */}
+          {/* Título de Sección */}
           <div className="mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
               Sobre Mí
@@ -45,7 +61,7 @@ export const AboutSection = () => {
             </h2>
           </div>
 
-          {/* About Cards Grid */}
+          {/* Tarjetas de Información (Estáticas) */}
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-20">
             {aboutCards.map((card, index) => (
               <div
@@ -68,27 +84,41 @@ export const AboutSection = () => {
             ))}
           </div>
 
-          {/* Skills Section */}
+          {/* Carrusel de Habilidades (Fluido) */}
           <div>
             <h3 className="text-2xl font-bold text-center text-foreground mb-10">
               Mis Habilidades Técnicas
             </h3>
 
-            <div className="flex flex-wrap justify-center gap-6 lg:gap-10">
-              {skills.map((skill, index) => (
-                <div
-                  key={skill.name}
-                  className="group flex flex-col items-center gap-3 transition-all duration-300"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-card border border-border shadow-soft flex items-center justify-center text-3xl lg:text-4xl group-hover:scale-110 group-hover:shadow-hover group-hover:border-primary/30 transition-all duration-300">
-                    {skill.icon}
-                  </div>
-                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
-                    {skill.name}
-                  </span>
-                </div>
-              ))}
+            <div className="w-full px-4 overflow-hidden">
+              <Carousel
+                plugins={[plugin.current]}
+                opts={{
+                  align: "start",
+                  loop: true,
+                  dragFree: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-4">
+                  {/* Duplicamos la lista 3 veces para asegurar el efecto infinito sin cortes */}
+                  {[...skills, ...skills, ...skills].map((skill, index) => (
+                    <CarouselItem
+                      key={index}
+                      className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
+                    >
+                      <div className="group flex flex-col items-center gap-3 py-4 select-none">
+                        <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-card border border-border shadow-soft flex items-center justify-center text-3xl lg:text-4xl group-hover:scale-110 group-hover:shadow-hover group-hover:border-primary/30 transition-all duration-300">
+                          {skill.icon}
+                        </div>
+                        <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                          {skill.name}
+                        </span>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </div>
           </div>
         </div>

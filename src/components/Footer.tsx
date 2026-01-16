@@ -4,7 +4,7 @@ export const Footer = () => {
       <div className="container mx-auto px-6 lg:px-10">
         <div className="text-center">
           <p className="text-muted-foreground text-sm">
-            Diseñado y desarrollado por{" "}
+            Desarrollado por{" "}
             <span className="text-primary font-medium">Jonahan Reyes</span>
           </p>
           <p className="text-muted-foreground/60 text-xs mt-2">
