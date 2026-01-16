@@ -1,8 +1,15 @@
+
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -14,6 +21,22 @@ export default {
     },
     extend: {
       colors: {
+        // --- Paleta Personalizada Minimalista (Tierra/Latte) ---
+        earth: {
+          50: "#FDFCF8",  // Fondo principal (Crema muy suave)
+          100: "#F5F2EA", // Fondo secundario
+          200: "#E6DFD1", // Bordes suaves
+          300: "#D4C5B0",
+          400: "#BFA586",
+          500: "#A68B5B", // Color principal para botones/iconos
+          600: "#8C7046",
+          700: "#5E4B35",
+          800: "#3E3226",
+          900: "#2C241B", // Texto principal (Café oscuro elegante)
+          950: "#1A1612",
+        },
+        // -------------------------------------------------------
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -65,20 +88,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
@@ -87,5 +102,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;
