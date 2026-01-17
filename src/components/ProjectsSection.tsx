@@ -51,7 +51,7 @@ const projects = [
     tags: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     links: {
       demo: "#",
-      repo: "https://github.com/JonathanMReyes/portfolio-shine",
+      repo: "https://github.com/JonathanAlexisMartinezReyes/portfolio-shine",
     },
     private: false,
   },
