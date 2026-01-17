@@ -107,8 +107,8 @@ export const HeroSection = () => {
             </h1>
 
             <p className="text-muted-foreground text-lg max-w-xl mx-auto lg:mx-0 mb-8 animate-fade-up animation-delay-200">
-              Especializado en el desarrollo de sistemas seguros y escalables.
-              Enfocado en Python, Django y AWS Docker.
+              Experiencia en el desarrollo de sistemas seguros y escalables.
+              Enfocado en Python, Django, Docker y AWS.
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 animate-fade-up animation-delay-300">
