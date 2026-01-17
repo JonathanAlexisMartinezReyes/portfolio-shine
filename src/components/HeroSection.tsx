@@ -2,25 +2,30 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, ArrowRight, Server, CloudCog, ShieldCheck } from "lucide-react";
 
-// Definimos los delays exactos para que el brillo coincida con el giro del radar (4 segundos por vuelta)
+// --- IMPORTACIÓN DE LA FOTO ---
+import profileImage from "../assets/images/cuerpo_completo.jpeg"; 
+
+// Definimos los delays exactos para que el brillo coincida con el giro del radar
 const radarSkills = [
   {
     icon: Server,
     label: "Backend",
-    position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2", // Norte (0 grados)
-    highlightDelay: "0s", // Se ilumina al inicio
+    position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2", 
+    highlightDelay: "0s",
   },
   {
     icon: CloudCog,
     label: "Cloud Arch",
-    position: "bottom-[20%] right-[10%]", // Sureste (~135 grados)
-    highlightDelay: "1.5s", // Se ilumina cuando el haz pasa por aquí
+    // AJUSTE RESPONSIVO: En móvil más afuera (bottom-10%), en desktop como estaba antes (bottom-20%)
+    position: "bottom-[10%] right-[5%] md:bottom-[20%] md:right-[10%]", 
+    highlightDelay: "1.5s",
   },
   {
     icon: ShieldCheck,
     label: "QA & Sec",
-    position: "bottom-[20%] left-[10%]", // Suroeste (~225 grados)
-    highlightDelay: "2.5s", // Se ilumina cuando el haz pasa por aquí
+    // AJUSTE RESPONSIVO: En móvil más afuera (bottom-10%), en desktop como estaba antes (bottom-20%)
+    position: "bottom-[10%] left-[5%] md:bottom-[20%] md:left-[10%]", 
+    highlightDelay: "2.5s",
   },
 ];
 
@@ -107,12 +112,19 @@ export const HeroSection = () => {
             </p>
 
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 animate-fade-up animation-delay-300">
+              {/* BOTÓN DESCARGAR CV (Actualizado a CV_JAMR.pdf) */}
               <Button
                 size="lg"
+                asChild
                 className="group rounded-full px-8 gap-2 shadow-soft hover:shadow-hover transition-all duration-300"
               >
-                <Download className="w-4 h-4" />
-                Descargar CV
+                {/* href apunta a la carpeta public automáticamente. 
+                   download="nombre..." es el nombre que se le pondrá al archivo cuando se descargue 
+                */}
+                <a href="/CV_JAMR.pdf" download="CV_Jonathan_Martinez.pdf">
+                  <Download className="w-4 h-4" />
+                  Descargar CV
+                </a>
               </Button>
 
               <Button
@@ -140,23 +152,21 @@ export const HeroSection = () => {
                 {/* Límite visual del radar */}
                 <div className="w-full h-full rounded-full border border-primary/10 relative overflow-hidden">
                     
-                    {/* --- NUEVO: Haz de Luz (Scanner) --- */}
-                    {/* Gira en 4s, igual que el ciclo de highlight de los iconos */}
+                    {/* Haz de Luz (Scanner) */}
                     <div className="absolute inset-0 animate-[spin_4s_linear_infinite]">
-                        <div className="w-full h-1/2 bg-gradient-to-l from-transparent via-transparent to-primary/20 opacity-0" /> {/* Mitad vacía */}
-                        <div className="w-full h-1/2 bg-gradient-to-r from-transparent via-primary/5 to-primary/30 border-b border-primary/40 blur-sm" /> {/* Haz de luz */}
+                        <div className="w-full h-1/2 bg-gradient-to-l from-transparent via-transparent to-primary/20 opacity-0" />
+                        <div className="w-full h-1/2 bg-gradient-to-r from-transparent via-primary/5 to-primary/30 border-b border-primary/40 blur-sm" />
                     </div>
 
                     {/* Ondas internas */}
                     <div className="absolute inset-8 rounded-full border-2 border-primary/5 animate-[ping_3s_ease-in-out_infinite]" />
                     <div className="absolute inset-20 rounded-full border-2 border-primary/10 animate-[ping_3s_ease-in-out_infinite] animation-delay-500" />
                     
-                    {/* Centro exacto del radar (Referencia visual) */}
+                    {/* Centro exacto del radar */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-primary/20 rounded-full"></div>
                 </div>
 
-                {/* Iconos distribuidos en el radar (Fuera del overflow hidden para que el shadow se vea bien) */}
-                {/* Nota: Usamos un contenedor del mismo tamaño encima para los iconos */}
+                {/* Iconos distribuidos en el radar */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none">
                     {radarSkills.map((skill, index) => (
                     <div
@@ -181,19 +191,29 @@ export const HeroSection = () => {
               </div>
 
               {/* 2. LA FOTO (Posicionada Estratégicamente) */}
-              <div className="absolute bottom-1/2 left-1/2 transform -translate-x-[250%] mb-8 z-20">
+              <div 
+                className="
+                  absolute z-20
+                  /* MÓVIL: Centrado en el radar */
+                  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                  /* ESCRITORIO: Desplazado a la izquierda */
+                  lg:top-auto lg:bottom-1/2 lg:translate-y-0 lg:-translate-x-[250%] lg:mb-8
+                "
+              >
                 <div className="w-40 h-40 md:w-44 md:h-44 rounded-full overflow-hidden border-[4px] border-card shadow-2xl bg-earth-100 relative group">
                   {/* Brillo interior */}
                   <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-full z-10" />
+                  
+                  {/* FOTO DE PERFIL (Variable importada) */}
                   <img 
-                    src="/profile-anime.png" 
+                    src={profileImage} 
                     alt="Jonathan Alexis"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 
                 {/* Etiqueta flotante */}
-                <div className="absolute -right-4 bottom-4 bg-primary text-primary-foreground text-[10px] font-bold px-2 py-1 rounded-full shadow-lg border-2 border-card animate-bounce hidden md:block">
+                <div className="absolute -right-4 bottom-4 bg-primary text-primary-foreground text-[10px] font-bold px-2 py-1 rounded-full shadow-lg border-2 border-card animate-bounce hidden md:block z-30">
                     Dev
                 </div>
               </div>

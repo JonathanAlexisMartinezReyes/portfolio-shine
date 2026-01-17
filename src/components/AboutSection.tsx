@@ -7,6 +7,17 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 
+// --- IMPORTACIÓN DE ICONOS ---
+// Ajusta los nombres de archivo si son diferentes en tu carpeta
+import pythonIcon from "../assets/icons/python.png";
+import djangoIcon from "../assets/icons/django.png";
+import javaIcon from "../assets/icons/java.png";
+import mysqlIcon from "../assets/icons/mysql.png";
+import mongoIcon from "../assets/icons/mongodb.png";
+import dockerIcon from "../assets/icons/docker.png";
+import awsIcon from "../assets/icons/aws.png";
+import gitIcon from "../assets/icons/git.png";
+
 const aboutCards = [
   {
     icon: User,
@@ -28,15 +39,16 @@ const aboutCards = [
   },
 ];
 
+// Actualizamos el array para usar las variables importadas
 const skills = [
-  { name: "Python", icon: "🐍" },
-  { name: "Django", icon: "🎯" },
-  { name: "Java", icon: "☕" },
-  { name: "MySQL", icon: "🐬" },
-  { name: "MongoDB", icon: "🍃" },
-  { name: "Docker", icon: "🐳" },
-  { name: "AWS", icon: "☁️" },
-  { name: "Git", icon: "📦" },
+  { name: "Python", icon: pythonIcon },
+  { name: "Django", icon: djangoIcon },
+  { name: "Java", icon: javaIcon },
+  { name: "MySQL", icon: mysqlIcon },
+  { name: "MongoDB", icon: mongoIcon },
+  { name: "Docker", icon: dockerIcon },
+  { name: "AWS", icon: awsIcon },
+  { name: "Git", icon: gitIcon },
 ];
 
 export const AboutSection = () => {
@@ -45,7 +57,7 @@ export const AboutSection = () => {
     AutoScroll({ 
       speed: 1, 
       stopOnInteraction: false,
-      stopOnMouseEnter: true, // Se detiene suave si pones el mouse (opcional)
+      stopOnMouseEnter: true, // Se detiene suave si pones el mouse
     })
   );
 
@@ -108,8 +120,14 @@ export const AboutSection = () => {
                       className="pl-4 basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6"
                     >
                       <div className="group flex flex-col items-center gap-3 py-4 select-none">
-                        <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-card border border-border shadow-soft flex items-center justify-center text-3xl lg:text-4xl group-hover:scale-110 group-hover:shadow-hover group-hover:border-primary/30 transition-all duration-300">
-                          {skill.icon}
+                        {/* Contenedor del icono */}
+                        <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-card border border-border shadow-soft flex items-center justify-center group-hover:scale-110 group-hover:shadow-hover group-hover:border-primary/30 transition-all duration-300 p-3">
+                          {/* CAMBIO: Renderizamos la imagen PNG */}
+                          <img 
+                            src={skill.icon} 
+                            alt={skill.name}
+                            className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" 
+                          />
                         </div>
                         <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
                           {skill.name}

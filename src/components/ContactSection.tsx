@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Linkedin, Github, MessageCircle, Send, Mail } from "lucide-react";
+import { Linkedin, Github, Gitlab, MessageCircle, Send, Mail } from "lucide-react"; // 1. Importamos Gitlab
 import { toast } from "sonner";
 
 const socialLinks = [
   { name: "LinkedIn", icon: Linkedin, url: "https://linkedin.com/in/jonamare" },
-  { name: "GitHub", icon: Github, url: "https://github.com" },
-  { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/123456789" },
+  { name: "GitHub", icon: Github, url: "https://github.com/JonathanAlexisMartinezReyes?tab=repositories" },
+  // NUEVO: Agregamos GitLab a la lista
+  { name: "GitLab", icon: Gitlab, url: "https://gitlab-ingsoftware.uaz.edu.mx/JonathanMReyes" }, 
+  { name: "WhatsApp", icon: MessageCircle, url: "https://wa.me/524922600026" },
 ];
 
 export const ContactSection = () => {
