@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Linkedin, Github, Gitlab, MessageCircle } from "lucide-react";
+import { Menu, X, Linkedin, Github, Gitlab } from "lucide-react"; // Se quitó MessageCircle
 
 const navItems = [
   { name: "Inicio", href: "#inicio" },
@@ -14,7 +14,6 @@ export const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Detectamos si el usuario ha bajado más de 50px
       setIsScrolled(window.scrollY > 50);
     };
 
@@ -23,19 +22,17 @@ export const Navbar = () => {
   }, []);
 
   // --- LÓGICA DE COLORES DINÁMICOS ---
-  // Si hay scroll (Fondo Café): Texto Blanco/Crema (earth-50) para contraste
-  // Si NO hay scroll (Transparente): Texto normal del tema (foreground)
   const textColorClass = isScrolled ? "text-earth-50" : "text-foreground";
   const mutedTextClass = isScrolled ? "text-earth-200" : "text-muted-foreground";
   const hoverTextClass = isScrolled ? "hover:text-white" : "hover:text-primary";
-  const logoDotClass = isScrolled ? "text-earth-400" : "text-primary"; // El punto se vuelve dorado/ocre
+  const logoDotClass = isScrolled ? "text-earth-400" : "text-primary";
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-earth-900/95 backdrop-blur-md shadow-lg border-b border-earth-800" // AL BAJAR: Café Oscuro
-          : "bg-transparent" // ARRIBA: Transparente
+          ? "bg-earth-900/95 backdrop-blur-md shadow-lg border-b border-earth-800"
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-10">
@@ -65,7 +62,7 @@ export const Navbar = () => {
             </ul>
           </nav>
 
-          {/* ICONOS SOCIALES (Escritorio) - Con tus enlaces reales */}
+          {/* ICONOS SOCIALES (Escritorio) - Sin WhatsApp */}
           <div className="hidden md:flex items-center gap-4">
             <a
               href="https://linkedin.com/in/jonamare"
@@ -91,17 +88,9 @@ export const Navbar = () => {
             >
               <Gitlab className="w-5 h-5" />
             </a>
-            <a
-              href="https://wa.me/524922600026"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${mutedTextClass} ${hoverTextClass} transition-all duration-300 hover:-translate-y-0.5`}
-            >
-              <MessageCircle className="w-5 h-5" />
-            </a>
           </div>
 
-          {/* BOTÓN MENÚ MÓVIL (Hamburguesa) */}
+          {/* BOTÓN MENÚ MÓVIL */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`md:hidden p-2 transition-colors ${textColorClass}`}
@@ -114,8 +103,7 @@ export const Navbar = () => {
           </button>
         </div>
 
-        {/* MENÚ MÓVIL (Desplegable) */}
-        {/* Forzamos fondo café siempre para legibilidad en móviles */}
+        {/* MENÚ MÓVIL */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
@@ -134,19 +122,16 @@ export const Navbar = () => {
                 </a>
               ))}
               
-              {/* Iconos en menú móvil */}
+              {/* Iconos en menú móvil - Sin WhatsApp */}
               <div className="flex gap-6 pt-4 mt-2 border-t border-earth-800 px-4 justify-center">
                 <a href="https://linkedin.com/in/jonamare" className="text-earth-200 hover:text-white">
                   <Linkedin className="w-6 h-6" />
                 </a>
-                <a href="https://github.com/JonathanAlexisMartinezReyes?tab=repositories" className="text-earth-200 hover:text-white">
+                <a href="https://github.com/JonathanMReyes" className="text-earth-200 hover:text-white">
                   <Github className="w-6 h-6" />
                 </a>
-                <a href="https://gitlab-ingsoftware.uaz.edu.mx/JonathanMReyes" className="text-earth-200 hover:text-white">
+                <a href="https://gitlab.com/JonathanMReyes" className="text-earth-200 hover:text-white">
                   <Gitlab className="w-6 h-6" />
-                </a>
-                <a href="https://wa.me/524922600026" className="text-earth-200 hover:text-white">
-                  <MessageCircle className="w-6 h-6" />
                 </a>
               </div>
             </nav>
